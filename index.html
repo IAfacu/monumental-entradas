@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Entradas Argentina–Benín</title>
+<meta name="description" content="Mapa interactivo a escala del Mâs Monumental: dónde queda y cuánto cuesta cada entrada de Argentina vs Benín, la despedida de Messi (6/10/2026).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&display=swap">
+<style>
+/* ---------- Tokens ---------- */
+:root{
+  color-scheme:light;
+  --page:#edf1f5;
+  --surface:#fafbfd;
+  --surface-2:#f1f4f8;
+  --ink:#0f2033;
+  --ink-2:#43566b;
+  --muted:#65778b;
+  --hair:#d5dde6;
+  --hair-2:#b7c3d0;
+  --sun:#f6b40e;
+  --sun-ink:#8a5d00;
+  --sun-wash:rgba(246,180,14,.15);
+  --focus:#1c5cab;
+  --grass:#3b8150;
+  --grass-2:#357849;
+  --grass-edge:#2e6b43;
+  --line:#f4f8f4;
+  --shell:#dde4eb;
+  --shell-line:#c3cdd8;
+  --palco:#aeb9c6;
+  --road:#cad3dd;
+  --water:#9fc3e8;
+  /* rampa ordinal por precio (validada: un tono, luminosidad monótona) */
+  --p1:#86b6ef; --p2:#5598e7; --p3:#2a78d6; --p4:#1c5cab; --p5:#104281;
+  --sky-1:#08111d; --sky-2:#1b3352; --dim:#27374b;
+  --shadow:0 1px 2px rgba(15,32,51,.05),0 8px 24px rgba(15,32,51,.06);
+  --display:"Big Shoulders","Big Shoulders Display","Arial Narrow","Roboto Condensed",Impact,sans-serif;
+  --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --page:#0a121c; --surface:#101b29; --surface-2:#152334;
+    --ink:#edf2f7; --ink-2:#b2bfcd; --muted:#8395a9;
+    --hair:#213146; --hair-2:#34485f;
+    --sun:#f6b40e; --sun-ink:#f7c548; --sun-wash:rgba(246,180,14,.13); --focus:#86b6ef;
+    --grass:#2e6b43; --grass-2:#29623d; --grass-edge:#215335; --line:#e8f0e9;
+    --shell:#182638; --shell-line:#26384e; --palco:#3a4a5e; --road:#223244; --water:#1d3a5c;
+    --p1:#184f95; --p2:#256abf; --p3:#3987e5; --p4:#6da7ec; --p5:#9ec5f4;
+    --dim:#1d2a3a;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#0a121c; --surface:#101b29; --surface-2:#152334;
+  --ink:#edf2f7; --ink-2:#b2bfcd; --muted:#8395a9;
+  --hair:#213146; --hair-2:#34485f;
+  --sun:#f6b40e; --sun-ink:#f7c548; --sun-wash:rgba(246,180,14,.13); --focus:#86b6ef;
+  --grass:#2e6b43; --grass-2:#29623d; --grass-edge:#215335; --line:#e8f0e9;
+  --shell:#182638; --shell-line:#26384e; --palco:#3a4a5e; --road:#223244; --water:#1d3a5c;
+  --p1:#184f95; --p2:#256abf; --p3:#3987e5; --p4:#6da7ec; --p5:#9ec5f4;
+  --dim:#1d2a3a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}
+
+/* ---------- Base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);font:400 15px/1.55 var(--body)}
+[hidden]{display:none!important}
+img,svg,canvas{max-width:100%}
+a{color:inherit;text-decoration-color:var(--hair-2);text-underline-offset:2px}
+a:hover{text-decoration-color:currentColor}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.wrap{max-width:1380px;margin:0 auto;padding-inline:16px;padding-block:22px 56px}
+@media (min-width:760px){.wrap{padding-inline:28px;padding-block:30px 64px}}
+
+/* ---------- Encabezado ---------- */
+.top{display:grid;gap:10px;margin-bottom:24px}
+.eyebrow{margin:0;font:700 12px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--sun-ink)}
+h1{margin:0;font:800 clamp(2.5rem,6.4vw,4.4rem)/.9 var(--display);letter-spacing:.005em;text-transform:uppercase;text-wrap:balance}
+.match{margin:0;font-size:16.5px;color:var(--ink-2);text-wrap:balance}
+.match strong{color:var(--ink);font-weight:700}
+.facts{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.facts li{display:inline-flex;gap:8px;align-items:baseline;padding:6px 12px;border:1px solid var(--hair);border-radius:999px;background:var(--surface);font-size:13.5px;color:var(--ink-2)}
+.facts b{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+
+/* ---------- Grilla ---------- */
+.app{display:grid;gap:22px;grid-template-columns:minmax(0,1fr);grid-template-areas:"bol" "plano" "det" "lower"}
+.boleteria{grid-area:bol}
+.plano-wrap{grid-area:plano;min-width:0}
+.detalle{grid-area:det}
+.lower{grid-area:lower;display:grid;gap:22px;grid-template-columns:minmax(0,1fr);min-width:0}
+@media (min-width:760px){.lower{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media (min-width:1180px){
+  .app{grid-template-columns:minmax(310px,360px) minmax(0,1fr);column-gap:30px;grid-template-areas:"bol plano" "det plano" "det lower";grid-template-rows:auto auto 1fr;align-items:start}
+}
+.section-title{margin:0;font:800 23px/1 var(--display);letter-spacing:.05em;text-transform:uppercase}
+.section-sub{margin:5px 0 0;color:var(--muted);font-size:13.5px;line-height:1.4}
+.panel{background:var(--surface);border:1px solid var(--hair);border-radius:14px;box-shadow:var(--shadow)}
+
+/* ---------- Boletería (talones) ---------- */
+.stubs{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px;grid-template-columns:minmax(0,1fr)}
+.stub{--c:var(--p1);position:relative;display:grid;grid-template-columns:10px minmax(0,1fr) auto;align-items:stretch;width:100%;padding:0;border:1px solid var(--hair);border-radius:11px;background:var(--surface);color:var(--ink);text-align:left;font:inherit;cursor:pointer;box-shadow:0 1px 1px rgba(15,32,51,.03)}
+.stub .sw{background:var(--c);border-radius:10px 0 0 10px}
+.stub .main{display:grid;align-content:center;gap:2px;padding:10px 12px;min-width:0}
+.stub .name{font-weight:650;font-size:14.5px;line-height:1.25}
+.stub .where{font-size:12.5px;line-height:1.3;color:var(--muted)}
+.stub .price{position:relative;display:flex;align-items:center;padding:10px 14px 10px 16px;border-left:2px dashed var(--hair-2);font:800 23px/1 var(--display);letter-spacing:.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.stub .price::before,.stub .price::after{content:"";position:absolute;left:-7px;width:12px;height:12px;border-radius:50%;background:var(--page)}
+.stub .price::before{top:-7px}
+.stub .price::after{bottom:-7px}
+.stub.sub{margin-left:22px}
+.stub.sub .price{font-size:20px}
+.stub:hover{border-color:var(--hair-2)}
+.stub[aria-pressed="true"]{border-color:var(--sun);box-shadow:0 0 0 1px var(--sun) inset,0 0 0 4px var(--sun-wash)}
+.stub[aria-pressed="true"] .name::after{content:"  ●";color:var(--sun-ink);font-size:10px;vertical-align:2px}
+@media (max-width:759px){
+  .stubs{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .stub{grid-template-columns:8px minmax(0,1fr);grid-template-rows:1fr auto}
+  .stub .sw{grid-row:1 / span 2}
+  .stub .where{display:none}
+  .stub .main{padding:9px 10px 6px}
+  .stub .name{font-size:13.5px}
+  .stub .price{border-left:0;border-top:2px dashed var(--hair-2);padding:7px 10px 9px;font-size:20px}
+  .stub .price::before,.stub .price::after{display:none}
+  .stub.sub{margin-left:0}
+}
+
+/* ---------- Plano ---------- */
+.plano-wrap{display:grid;gap:10px}
+.plano-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 16px}
+.toggle{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid var(--hair-2);border-radius:999px;background:var(--surface);color:var(--ink);font:600 13px var(--body);cursor:pointer}
+.toggle::before{content:"";width:14px;height:14px;border-radius:4px;border:1.5px solid var(--ink-2);background:transparent}
+.toggle[aria-pressed="true"]::before{background:var(--sun);border-color:var(--sun);box-shadow:inset 0 0 0 2px var(--surface)}
+.plano{position:relative;background:var(--surface);border:1px solid var(--hair);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+#map{display:block;width:100%;height:auto;aspect-ratio:344/280;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+#map text{font-family:var(--body);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+#map .shell{fill:var(--shell);stroke:var(--shell-line);stroke-width:1px;vector-effect:non-scaling-stroke}
+#map .surround{fill:var(--grass-edge)}
+#map .grass{fill:var(--grass)}
+#map .stripe{fill:var(--grass-2)}
+#map .pl{fill:none;stroke:var(--line);stroke-width:1.1px;vector-effect:non-scaling-stroke}
+#map .goal{fill:var(--line);opacity:.9}
+#map .spot{fill:var(--line)}
+#map .bench{fill:var(--surface);opacity:.9}
+#map .road{fill:var(--road)}
+#map .water{fill:var(--water)}
+#map .zone{stroke:var(--surface);stroke-width:1px;vector-effect:non-scaling-stroke;cursor:pointer}
+#map .zone.palco{fill:url(#hatch)}
+#map .zone.off{opacity:.42}
+#map .zone.off:hover{opacity:.65}
+#map .zone-base{fill:var(--shell);pointer-events:none}
+#map .zone.on:hover{filter:brightness(1.07)}
+#map .h-bg{fill:var(--shell)}
+#map .h-ln{fill:var(--palco)}
+#map .sel-outline{fill:none;stroke:var(--sun);stroke-width:2.4px;stroke-linejoin:round;vector-effect:non-scaling-stroke;pointer-events:none}
+#map .t-stand{font-family:var(--display);font-weight:800;letter-spacing:.14em;font-size:calc(var(--u,1)*13px);fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:calc(var(--u,1)*3.5px);stroke-linejoin:round}
+#map .t-zone{font-weight:700;font-size:calc(var(--u,1)*11px);fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:calc(var(--u,1)*3px);stroke-linejoin:round}
+#map .t-street{font-size:calc(var(--u,1)*11px);font-style:italic;fill:var(--muted)}
+#map .t-mini{font-size:calc(var(--u,1)*9.5px);fill:var(--line);opacity:.85}
+#map .t-scale{font-size:calc(var(--u,1)*10px);fill:var(--ink-2)}
+#map .t-dim{font-size:calc(var(--u,1)*10.5px);font-weight:700;fill:var(--ink)}
+#map .t-dim.halo{paint-order:stroke;stroke:var(--surface);stroke-width:calc(var(--u,1)*3px);stroke-linejoin:round}
+#map .t-dim.end{text-anchor:end;font-weight:600;fill:var(--ink-2)}
+#map .sb1{fill:var(--ink)} #map .sb2{fill:var(--surface)}
+#map .sb-frame{fill:none;stroke:var(--ink);stroke-width:1px;vector-effect:non-scaling-stroke}
+#map .dims{display:none;pointer-events:none}
+#map.show-dims .dims{display:inline}
+#map .dim{stroke:var(--ink);stroke-width:1.2px;vector-effect:non-scaling-stroke}
+#map .ring{fill:none;stroke:var(--ink);stroke-opacity:.55;stroke-width:1px;stroke-dasharray:4 4;vector-effect:non-scaling-stroke}
+#map .outline{fill:none;stroke:var(--sun);stroke-width:1.6px;stroke-dasharray:6 4;vector-effect:non-scaling-stroke}
+#map .fov{fill:var(--sun);fill-opacity:.22;stroke:var(--sun);stroke-width:1px;vector-effect:non-scaling-stroke;pointer-events:none}
+#map .vp{fill:var(--sun);stroke:var(--ink);stroke-width:1.6px;vector-effect:non-scaling-stroke;pointer-events:none}
+#map .vp-halo{fill:var(--surface);opacity:.85;pointer-events:none}
+#map.narrow .wide-only{display:none}
+.compass{position:absolute;top:10px;right:10px;width:46px;height:46px;pointer-events:none}
+.compass .c-ring{fill:var(--surface);stroke:var(--hair-2);stroke-width:1.2}
+.compass .c-n{fill:var(--sun)}
+.compass .c-s{fill:var(--hair-2)}
+.compass text{font:800 11px var(--display);fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+.tip{position:absolute;left:0;top:0;z-index:2;max-width:250px;padding:8px 10px;border-radius:8px;background:var(--ink);color:var(--surface);font-size:12.5px;line-height:1.35;pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.tip b{display:block;font-size:13px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin:0;padding:0;list-style:none;font-size:12.5px;color:var(--ink-2)}
+.legend li{display:inline-flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--c)}
+.legend i.hatch{background:repeating-linear-gradient(45deg,var(--palco) 0 2px,var(--shell) 2px 5px)}
+.legend .lg-title{font-weight:700;color:var(--ink)}
+.map-msg{margin:0;min-height:1.2em;font-size:13px;color:var(--sun-ink);font-weight:600}
+
+/* ---------- Detalle ---------- */
+.detalle{padding:18px 18px 18px}
+.det-eyebrow{margin:0;font:700 11px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.det-title{margin:6px 0 0;font:800 30px/1 var(--display);letter-spacing:.01em;text-transform:uppercase;text-wrap:balance}
+.det-price{margin:10px 0 0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font:800 44px/1 var(--display);font-variant-numeric:tabular-nums}
+.det-extra{font:600 13px/1.3 var(--body);color:var(--ink-2)}
+.det-where{margin:12px 0 0;color:var(--ink-2);max-width:62ch}
+.det-grid{display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px 14px;margin:14px 0 0;font-size:14px}
+.det-grid dt{color:var(--muted);font-weight:500}
+.det-grid dd{margin:0;font-weight:600}
+.aprox{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.det-note{margin:14px 0 0;padding:10px 12px;border-radius:10px;background:var(--sun-wash);font-size:14px;line-height:1.45}
+.det-switch{margin-top:16px;padding-top:14px;border-top:1px solid var(--hair);display:grid;gap:8px}
+.det-sw-label{margin:0;font:700 11px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.switch{display:inline-flex;justify-self:start;gap:3px;padding:3px;border:1px solid var(--hair-2);border-radius:999px;background:var(--surface-2)}
+.switch button{border:0;border-radius:999px;padding:7px 14px;background:transparent;color:var(--ink-2);font:650 13.5px var(--body);cursor:pointer}
+.switch button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.det-stand{margin:0;font-size:13.5px;color:var(--ink-2)}
+
+/* ---------- Corte y vista ---------- */
+.corte-wrap,.vista-wrap{padding:16px 16px 14px;display:grid;gap:10px;align-content:start;min-width:0}
+.section-title.sm{font-size:20px}
+#corte{display:block;width:100%;height:auto;aspect-ratio:114/46}
+#corte text{font-family:var(--body);text-anchor:middle;dominant-baseline:central}
+#corte .cg{stroke:var(--hair);stroke-width:1px;vector-effect:non-scaling-stroke}
+#corte .c-ax{font-size:calc(var(--u,1)*10.5px);fill:var(--muted)}
+#corte .c-ax.start{text-anchor:start}
+#corte .c-grass{fill:var(--grass)}
+#corte .c-edge{fill:var(--grass-edge)}
+#corte .c-line{stroke:var(--ink);stroke-width:1.4px;vector-effect:non-scaling-stroke}
+#corte .c-tick{stroke:var(--muted);stroke-width:1px;vector-effect:non-scaling-stroke}
+#corte .c-struct{fill:var(--shell);stroke:var(--shell-line);stroke-width:1px;vector-effect:non-scaling-stroke}
+#corte .c-tier{stroke:var(--surface);stroke-width:.8px;vector-effect:non-scaling-stroke}
+#corte .c-tier.off{opacity:.35}
+#corte .c-tier.on{stroke:var(--sun);stroke-width:1.8px}
+#corte .c-tier.palco{fill:url(#c-hatch)}
+#corte .c-lbl{font-size:calc(var(--u,1)*10.5px);font-weight:600;fill:var(--muted)}
+#corte .c-lbl.on{fill:var(--ink);font-weight:800}
+#corte .c-fence{stroke:var(--ink-2);stroke-width:1.2px;stroke-dasharray:2 1.5;vector-effect:non-scaling-stroke}
+#corte .c-sight{stroke:var(--sun);stroke-width:1.2px;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+#corte .c-eye{fill:var(--sun);stroke:var(--ink);stroke-width:1.4px;vector-effect:non-scaling-stroke}
+#corte .h-bg{fill:var(--shell)} #corte .h-ln{fill:var(--palco)}
+.vista-box{position:relative;border-radius:12px;overflow:hidden;background:var(--sky-1)}
+#vista{display:block;width:100%;height:auto}
+.vista-info{margin:0;font-size:13.5px;color:var(--ink-2)}
+.vista-info b{color:var(--ink)}
+
+/* ---------- Método y fuentes ---------- */
+.metodo{margin-top:40px;display:grid;gap:16px}
+.metodo-grid{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.metodo-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.metodo .panel{padding:16px 18px}
+.metodo h3{margin:0 0 8px;font:800 18px/1.1 var(--display);letter-spacing:.05em;text-transform:uppercase}
+.metodo ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px;color:var(--ink-2)}
+.metodo li b{color:var(--ink)}
+.tag{display:inline-block;margin-right:6px;padding:1px 7px;border-radius:999px;font:700 10.5px/1.6 var(--body);letter-spacing:.08em;text-transform:uppercase;vertical-align:1px}
+.tag.of{background:var(--p3);color:var(--surface)}
+.tag.es{background:var(--sun-wash);color:var(--sun-ink);border:1px solid var(--sun)}
+.fuentes{margin:0;padding-left:20px;columns:2 320px;column-gap:28px;font-size:13.5px;color:var(--ink-2)}
+.fuentes li{break-inside:avoid;margin-bottom:6px}
+footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--hair);font-size:13px;color:var(--muted);max-width:90ch}
+@media (prefers-reduced-motion:no-preference){
+  .stub,.toggle,.switch button{transition:border-color .15s,box-shadow .15s,background-color .15s,color .15s}
+  #map .zone{transition:opacity .2s}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">Despedida de Messi · amistoso internacional</p>
+    <h1>Dónde queda cada entrada</h1>
+    <p class="match"><strong>Argentina vs Benín</strong> · martes 6 de octubre de 2026 · Mâs Monumental, Buenos Aires</p>
+    <ul class="facts">
+      <li><b>Venta</b> solo en deportick.com, desde el jueves 24/9 a las 18 h</li>
+      <li><b>Tope</b> 4 entradas por usuario</li>
+      <li><b>Horario</b> a confirmar por la AFA</li>
+    </ul>
+  </header>
+
+  <main class="app">
+    <section class="boleteria" aria-labelledby="h-bol">
+      <h2 id="h-bol" class="section-title">Entradas y precios</h2>
+      <p class="section-sub">Lista oficial de la AFA. Elegí una para ubicarla en el plano.</p>
+      <ul class="stubs">
+        <li><button type="button" class="stub" data-cat="popular" aria-pressed="false" style="--c:var(--p1)"><span class="sw" aria-hidden="true"></span><span class="main"><span class="name">Popular</span><span class="where">Cabeceras Sívori y Centenario · bandejas bajas · de pie</span></span><span class="price">$90.000</span></button></li>
+        <li><button type="button" class="stub sub" data-cat="menor" aria-pressed="false" style="--c:var(--p1)"><span class="sw" aria-hidden="true"></span><span class="main"><span class="name">Menor a Popular (3 a 10 años)</span><span class="where">Mismo lugar que la Popular</span></span><span class="price">$29.000</span></button></li>
+        <li><button type="button" class="stub" data-cat="alta-cab" aria-pressed="false" style="--c:var(--p2)"><span class="sw" aria-hidden="true"></span><span class="main"><span class="name">Platea Alta Sívori y Centenario</span><span class="where">Cabeceras · bandeja superior</span></span><span class="price">$180.000</span></button></li>
+        <li><button type="button" class="stub" data-cat="media-cab" aria-pressed="false" style="--c:var(--p3)"><span class="sw" aria-hidden="true"></span><span class="main"><span class="name">Platea Media Sívori y Centenario</span><span class="where">Cabeceras · bandeja del medio</span></span><span class="price">$320.000</span></button></li>
+        <li><button type="button" class="stub" data-cat="alta-lat" aria-pressed="false" style="--c:var(--p3)"><span class="sw" aria-hidden="true"></span><span class="main"><span class="name">Platea Alta San Martín y Belgrano</span><span class="where">Laterales · bandeja superior</span></span><span class="price">$320.000</span></button></li>
+        <li><button type="button" class="stub" data-cat="baja-lat" aria-pressed="false" style="--c:var(--p4)"><span class="sw" aria-hidden="true"></span><span class="main"><span class="name">Platea Baja San Martín y Belgrano</span><span class="where">Laterales · bajas, pegadas al campo</span></span><span class="price">$450.000</span></button></li>
+        <li><button type="button" class="stub" data-cat="media-lat" aria-pressed="false" style="--c:var(--p5)"><span class="sw" aria-hidden="true"></span><span class="main"><span class="name">Platea Media San Martín y Belgrano</span><span class="where">Laterales · bandeja del medio · la más cara</span></span><span class="price">$480.000</span></button></li>
+      </ul>
+    </section>
+
+    <section class="plano-wrap" aria-labelledby="h-plano">
+      <div class="plano-head">
+        <div>
+          <h2 id="h-plano" class="section-title">Plano a escala</h2>
+          <p class="section-sub">Visto desde arriba, en metros reales. Tocá un sector para verlo desde ahí.</p>
+        </div>
+        <button type="button" class="toggle" id="t-medidas" aria-pressed="false">Medidas</button>
+      </div>
+      <div class="plano" id="plano">
+        <svg id="map" role="img" aria-labelledby="map-title"><title id="map-title">Plano del Mâs Monumental con la ubicación de cada entrada</title></svg>
+        <div class="compass" aria-hidden="true">
+          <svg viewBox="-26 -26 52 52" width="46" height="46"><circle r="17" class="c-ring"/><g transform="rotate(40)"><path d="M0 -14 L4.2 1.5 L0 -1 L-4.2 1.5 Z" class="c-n"/><path d="M0 14 L4.2 -1.5 L0 1 L-4.2 -1.5 Z" class="c-s"/></g><text x="14.1" y="-16.9">N</text></svg>
+        </div>
+        <div class="tip" id="tip" hidden></div>
+      </div>
+      <ul class="legend" aria-label="Colores por precio">
+        <li class="lg-title">Precio del sector</li>
+        <li><i style="--c:var(--p1)"></i>$90.000</li>
+        <li><i style="--c:var(--p2)"></i>$180.000</li>
+        <li><i style="--c:var(--p3)"></i>$320.000</li>
+        <li><i style="--c:var(--p4)"></i>$450.000</li>
+        <li><i style="--c:var(--p5)"></i>$480.000</li>
+        <li><i class="hatch"></i>Palcos (no están en la lista AFA)</li>
+      </ul>
+      <p class="map-msg" id="map-msg" aria-live="polite"></p>
+    </section>
+
+    <section class="detalle panel" id="detalle" aria-labelledby="det-title"></section>
+
+    <div class="lower">
+      <section class="corte-wrap panel" aria-labelledby="h-corte">
+        <div>
+          <h2 id="h-corte" class="section-title sm">Corte de la tribuna</h2>
+          <p class="section-sub" id="corte-sub"></p>
+        </div>
+        <svg id="corte" role="img" aria-label="Corte de la tribuna con la altura de cada bandeja"></svg>
+      </section>
+      <section class="vista-wrap panel" aria-labelledby="h-vista">
+        <div>
+          <h2 id="h-vista" class="section-title sm">Vista aproximada</h2>
+          <p class="section-sub">Simulación geométrica desde el punto marcado, mirando al centro del campo.</p>
+        </div>
+        <div class="vista-box" id="vista-box"><canvas id="vista" role="img" aria-label="Simulación de cómo se ve el campo desde el punto elegido"></canvas></div>
+        <p class="vista-info" id="vista-info"></p>
+      </section>
+    </div>
+  </main>
+
+  <p class="sr-only" id="live" aria-live="polite"></p>
+
+  <section class="metodo" aria-labelledby="h-metodo">
+    <h2 id="h-metodo" class="section-title">Cómo se armó este plano</h2>
+    <div class="metodo-grid">
+      <div class="panel">
+        <h3>Datos oficiales</h3>
+        <ul>
+          <li><span class="tag of">AFA</span><b>Nombres y precios</b> de las siete entradas, publicados el 19/9/2026. Son los mismos para Argentina–Burkina Faso (sábado 3/10, también en el Monumental).</li>
+          <li><span class="tag of">AFA</span>Venta solo por Deportick desde el 24/9 a las 18 h, hasta 4 entradas por usuario, con retiro del ticket físico. Menores de 3 no pagan; la tarifa de 3 a 10 años es solo para la Popular.</li>
+          <li><span class="tag of">River</span>Campo de juego de <b>105 × 70 m</b>. Primera fila de las Baja Inferior San Martín y Belgrano a <b>12 m de la línea lateral</b>.</li>
+          <li><span class="tag of">River</span>Desde 2023 las populares son las bajas de Sívori y Centenario y las altas de esas cabeceras tienen butacas. Un alambrado de 2,5 m separa la popular del campo.</li>
+          <li><span class="tag of">River</span>Estadio de ≈32 m de alto. La pista de atletismo de 400 m y 8 andariveles se retiró en 2020 y el campo se bajó 1,8 m.</li>
+          <li><span class="tag of">River</span>San Martín Baja Inferior: 2.434 butacas (sectores 101 a 106). Belgrano Baja Inferior: sectores 112 a 116.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Estimaciones del modelo</h3>
+        <ul>
+          <li><span class="tag es">aprox.</span>Distancia de la primera fila de la popular a la línea de fondo: unos 12 m.</li>
+          <li><span class="tag es">aprox.</span>Forma del óvalo, profundidad y altura de cada bandeja y contorno exterior (≈277 × 220 m). Se reconstruyeron a partir de la pista histórica y se contrastaron con capacidades oficiales: la Baja Inferior San Martín del modelo da unas 2.400 butacas y la real tiene 2.434.</li>
+          <li><span class="tag es">aprox.</span>Dónde termina cada cabecera y empieza cada lateral en las esquinas.</li>
+          <li><span class="tag es">aprox.</span>Norte y calles: referencia de orientación, no a escala.</li>
+          <li><span class="tag es">aprox.</span>La vista es una simulación geométrica, no una foto. Los palcos y la hospitalidad no figuran en la lista de la AFA.</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Fuentes</h3>
+    <ol class="fuentes">
+      <li><a href="https://www.afa.com.ar/es/posts/precios-de-las-entradas-para-los-amistosos" target="_blank" rel="noopener">AFA · Precios de las entradas para los amistosos</a></li>
+      <li><a href="https://www.lanacion.com.ar/deportes/futbol/la-afa-publico-los-precios-de-las-entradas-para-los-amistosos-de-la-seleccion-para-despedir-a-messi-nid19092026/" target="_blank" rel="noopener">La Nación · La AFA publicó los precios (19/9/2026)</a></li>
+      <li><a href="https://www.infobae.com/deportes/2026/09/21/todo-lo-que-hay-que-saber-sobre-la-venta-de-entradas-para-los-amistosos-de-la-seleccion-y-la-despedida-de-messi-precios-y-como-comprar/" target="_blank" rel="noopener">Infobae · Todo sobre la venta de entradas (21/9/2026)</a></li>
+      <li><a href="https://www.iprofesional.com/actualidad/465038-seleccion-argentina-que-tenes-que-saber-antes-de-comprar-entradas-deportick" target="_blank" rel="noopener">iProfesional · Qué saber antes de comprar en Deportick</a></li>
+      <li><a href="https://www.cadena3.com/noticia/deportes/afa-reprograma-la-venta-de-entradas-para-los-amistosos-de-argentina-contra-burkina-faso-y-benin_596678" target="_blank" rel="noopener">Cadena 3 · La AFA reprogramó la venta para el jueves 24/9</a></li>
+      <li><a href="https://www.lacapital.com.ar/ovacion/venta-entradas-la-despedida-messi-la-seleccion-argentina-precios-y-como-comprarlas-n10282861.html" target="_blank" rel="noopener">La Capital · Menores y plateas</a></li>
+      <li><a href="https://www.goal.com/es/noticias/la-remodelacion-del-estadio-monumental-obras-modificaciones-y-cuando-se-construira-el-nuevo-anillo/bpx8fvyn63dw1o54cl1cuufvo" target="_blank" rel="noopener">Goal · Populares a las bajas, altas con butacas</a></li>
+      <li><a href="https://lapaginamillonaria.com/riverplate/Sector-por-sector-como-queda-la-distribuida-la-capacidad-del-Estadio-Monumental-20230201-0010.html" target="_blank" rel="noopener">La Página Millonaria · Capacidad sector por sector</a></li>
+      <li><a href="https://www.mdzol.com/deportes/2022/7/29/una-experiencia-monumental-cuantos-metros-estaran-las-plateas-bajas-del-campo-de-juego-262195.html" target="_blank" rel="noopener">MDZ · Las plateas bajas, a 12 m de la línea</a></li>
+      <li><a href="https://lapaginamillonaria.com/riverplate/Los-hinchas-de-River-agotaron-por-los-proximos-cinco-anos-las-plateas-San-Martin-Baja-Inferior-20220428-0004.html" target="_blank" rel="noopener">La Página Millonaria · San Martín Baja Inferior (2.434 butacas)</a></li>
+      <li><a href="https://lapaginamillonaria.com/riverplate/la-belgrano-inferior-se-estrenara-antes-de-lo-previsto-comenzo-la-venta-de-abonos-para-la-nueva-platea-20230405-LPM-280.html" target="_blank" rel="noopener">La Página Millonaria · Sectores de la Belgrano Inferior</a></li>
+      <li><a href="https://www.mdzol.com/deportes/2022/10/4/el-nuevo-monumental-river-anuncio-que-instalara-para-separar-las-populares-bajas-del-campo-de-juego-279986.html" target="_blank" rel="noopener">MDZ · El alambrado de 2,5 m de las populares bajas</a></li>
+      <li><a href="https://es.wikipedia.org/wiki/Estadio_Monumental_(River_Plate)" target="_blank" rel="noopener">Wikipedia · Estadio Monumental (nombres históricos de las tribunas)</a></li>
+      <li><a href="https://stadiumdb.com/stadiums/arg/el_monumental" target="_blank" rel="noopener">StadiumDB · Mâs Monumental (orientación y capacidad)</a></li>
+      <li><a href="https://stadiumdb.com/constructions/arg/mas_monumental" target="_blank" rel="noopener">StadiumDB · Obra: campo 1,8 m más bajo</a></li>
+      <li><a href="https://www.infobae.com/deportes/2026/09/18/river-plate-presento-un-nuevo-avance-en-las-obras-en-el-estadio-monumental-los-proximos-cambios/" target="_blank" rel="noopener">Infobae · Avance de obras (septiembre 2026)</a></li>
+      <li><a href="https://lapaginamillonaria.com/torneo-apertura/nuevo-acceso-para-la-tribuna-centenario-en-el-monumental-se-podra-ingresar-por-puente-labruna" target="_blank" rel="noopener">La Página Millonaria · Accesos por el Puente Labruna</a></li>
+      <li><a href="https://www.ellitoral.com/actualidad-tatengue/tribuna-union-segunda-alta-argentina_0_UPwBzYJ41v.html" target="_blank" rel="noopener">El Litoral · Altura de los estadios argentinos</a></li>
+    </ol>
+  </section>
+
+  <footer>
+    Página informativa no oficial, sin vínculo con la AFA, Deportick ni River Plate. Datos públicos relevados el 24/9/2026. Antes de comprar, confirmá sector y condiciones en deportick.com.
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  try { document.documentElement.lang = 'es'; } catch (e) { /* sin acceso */ }
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var NS = 'http://www.w3.org/2000/svg';
+  var rad = function (d) { return d * Math.PI / 180; };
+  var clamp = function (v, a, b) { a = a === undefined ? 0 : a; b = b === undefined ? 1 : b; return Math.min(b, Math.max(a, v)); };
+  var fmt = function (n) { return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); };
+  var round = Math.round;
+  var reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+
+  /* ---------------- Entradas (lista oficial AFA) ---------------- */
+  var CATS = [
+    { id: 'popular', name: 'Popular', price: 90000, lvl: 1, type: 'end', tiers: ['inf', 'baja'], standing: true,
+      stands: 'Sívori y Centenario, las dos cabeceras', tiersTxt: 'Baja Inferior y Baja', seat: 'De pie, sin butacas',
+      extra: 'Menores de 3 a 10 años: $29.000 · menores de 3: no pagan',
+      where: 'Detrás de los dos arcos: la cabecera Sívori, del lado del río, y la Centenario, del lado de Av. Figueroa Alcorta. Son las bandejas bajas de cada cabecera: la Baja Inferior, construida en 2023 donde estaba la pista de atletismo, y la Baja de siempre, justo arriba.',
+      note: 'Es lo que suponías: son las populares nuevas de atrás de cada arco. Las separa del campo un alambrado de 2,5 m.' },
+    { id: 'menor', name: 'Menor a Popular (3 a 10 años)', price: 29000, lvl: 1, type: 'end', tiers: ['inf', 'baja'], standing: true,
+      stands: 'Sívori y Centenario, las dos cabeceras', tiersTxt: 'Baja Inferior y Baja', seat: 'De pie, sin butacas',
+      where: 'El mismo lugar que la Popular: las bandejas bajas de las cabeceras Sívori y Centenario, detrás de los arcos.',
+      note: 'Vale solo para chicos de 3 a 10 años y solo en la Popular. Los menores de 3 no pagan. Desde los 3 años, en cualquier platea se paga la entrada completa.' },
+    { id: 'alta-cab', name: 'Platea Alta Sívori y Centenario', price: 180000, lvl: 2, type: 'end', tiers: ['alta'],
+      stands: 'Sívori y Centenario, las dos cabeceras', tiersTxt: 'Alta', seat: 'Con butaca',
+      where: 'La bandeja superior de las dos cabeceras, detrás de los arcos y arriba de todo. Hasta 2023 era popular; desde la remodelación tiene butacas.',
+      note: 'Es la platea más barata. Se ve el campo entero desde atrás del arco, pero de lejos.' },
+    { id: 'media-cab', name: 'Platea Media Sívori y Centenario', price: 320000, lvl: 3, type: 'end', tiers: ['media'],
+      stands: 'Sívori y Centenario, las dos cabeceras', tiersTxt: 'Media', seat: 'Con butaca',
+      where: 'La bandeja del medio de las cabeceras: arriba de la popular y abajo de la alta, detrás de los arcos.',
+      note: 'Cuesta lo mismo que la Platea Alta de las laterales. En la Centenario Media también están los palcos nuevos del club.' },
+    { id: 'alta-lat', name: 'Platea Alta San Martín y Belgrano', price: 320000, lvl: 3, type: 'side', tiers: ['alta'],
+      stands: 'San Martín y Belgrano, las dos laterales', tiersTxt: 'Alta', seat: 'Con butaca',
+      where: 'La bandeja superior de las dos tribunas laterales, las que van a lo largo del campo. Queda arriba de los palcos.',
+      note: 'Mismo precio que la Media de las cabeceras, pero de costado y más alto.' },
+    { id: 'baja-lat', name: 'Platea Baja San Martín y Belgrano', price: 450000, lvl: 4, type: 'side', tiers: ['inf', 'baja'],
+      stands: 'San Martín y Belgrano, las dos laterales', tiersTxt: 'Baja Inferior y Baja', seat: 'Con butaca',
+      where: 'Las bandejas bajas de las laterales: la nueva Baja Inferior, con la primera fila a 12 m de la línea lateral, y la Baja de siempre, justo detrás.',
+      note: 'Son las butacas más cerca del campo. Adelante de la San Martín están los bancos de suplentes. La AFA no detalla filas: el lugar exacto se elige al comprar.' },
+    { id: 'media-lat', name: 'Platea Media San Martín y Belgrano', price: 480000, lvl: 5, type: 'side', tiers: ['media'],
+      stands: 'San Martín y Belgrano, las dos laterales', tiersTxt: 'Media', seat: 'Con butaca',
+      where: 'La bandeja del medio de las laterales, entre la baja y los palcos.',
+      note: 'Es la entrada más cara: de costado y a media altura, la vista más completa del partido.' }
+  ];
+  var CAT = function (id) { for (var i = 0; i < CATS.length; i++) if (CATS[i].id === id) return CATS[i]; return null; };
+  var zoneCat = function (id) { return id === 'menor' ? 'popular' : id; };
+
+  /* ---------------- Tribunas ----------------
+     Plano: x hacia la Sívori (derecha), y hacia la San Martín (abajo). Metros, origen en el centro del campo. */
+  var STANDS = {
+    sanmartin:  { name: 'San Martín', type: 'side', sign: 1,  info: 'Tribuna principal, del lado sudeste. Adelante están los bancos de suplentes.' },
+    belgrano:   { name: 'Belgrano',   type: 'side', sign: -1, info: 'Enfrente de la San Martín, del lado de Av. Udaondo (noroeste).' },
+    sivori:     { name: 'Sívori',     type: 'end',  sign: 1,  info: 'Cabecera del lado del río (noreste), junto al Puente Labruna.' },
+    centenario: { name: 'Centenario', type: 'end',  sign: -1, info: 'Cabecera del lado de Av. Figueroa Alcorta (sudoeste).' }
+  };
+  var TIER_NAME = { inf: 'Baja Inferior', baja: 'Baja', media: 'Media', palcos: 'Palcos', alta: 'Alta' };
+  var TIER_SHORT = { inf: 'Baja inf.', baja: 'Baja', media: 'Media', palcos: 'Palcos', alta: 'Alta' };
+
+  /* ---------------- Geometría ----------------
+     Oficial: campo 105 × 70 m; primera fila lateral a 12 m.
+     Estimado: óvalo histórico con forma de pista (rectas ±28,45 m, radio interior 58 m) y anillos por bandeja. */
+  var G = { halfL: 52.5, halfW: 35, front: 12, sx: 28.45, R0: 58, split: 60, facade: 52 };
+  G.ySide = G.halfW + G.front;                 // 47
+  G.xEnd = G.halfL + G.front;                  // 64,5
+  G.offSide = G.R0 - G.halfW;                  // 23: del borde del óvalo a la línea lateral
+  G.offEnd = G.sx + G.R0 - G.halfL;            // 33,95: del borde del óvalo a la línea de fondo
+  G.xt = G.sx + G.R0 * Math.cos(rad(G.split)); // fin de la baja inferior lateral
+  G.yf = Math.sqrt(G.R0 * G.R0 - Math.pow(G.xEnd - G.sx, 2));
+  G.psiF = Math.atan2(G.yf, G.xEnd - G.sx) * 180 / Math.PI;
+  G.outerL = 2 * (G.sx + G.R0 + G.facade);
+  G.outerW = 2 * (G.R0 + G.facade);
+
+  // s = distancia desde el borde interior del óvalo; z = altura sobre el campo (aprox.)
+  var TIERS = {
+    side: { inf: { z0: 0.6, z1: 4.0 }, baja: { s0: 0, s1: 12.5, z0: 4.5, z1: 9.5 }, media: { s0: 13, s1: 27.5, z0: 10.5, z1: 18 },
+            palcos: { s0: 27.5, s1: 30, z0: 18.5, z1: 21 }, alta: { s0: 30, s1: 50, z0: 21, z1: 32 } },
+    end:  { inf: { z0: 0.8, z1: 5.0 }, baja: { s0: 0, s1: 12.5, z0: 5.5, z1: 10.5 }, media: { s0: 13, s1: 27.5, z0: 11.2, z1: 18.5 },
+            alta: { s0: 30, s1: 50, z0: 20, z1: 32 } }
+  };
+  function profileRange(type, tier) {
+    var off = type === 'side' ? G.offSide : G.offEnd;
+    if (tier === 'inf') return [G.front, off];
+    var T = TIERS[type][tier]; return [T.s0 + off, T.s1 + off];
+  }
+
+  var ZONES = [];
+  ['sanmartin', 'belgrano'].forEach(function (st) {
+    [['inf', 'baja-lat'], ['baja', 'baja-lat'], ['media', 'media-lat'], ['palcos', null], ['alta', 'alta-lat']].forEach(function (a) {
+      ZONES.push({ id: st + '-' + a[0], stand: st, tier: a[0], cat: a[1] });
+    });
+  });
+  ['sivori', 'centenario'].forEach(function (st) {
+    [['inf', 'popular'], ['baja', 'popular'], ['media', 'media-cab'], ['alta', 'alta-cab']].forEach(function (a) {
+      ZONES.push({ id: st + '-' + a[0], stand: st, tier: a[0], cat: a[1] });
+    });
+  });
+  ZONES.forEach(function (z) { z.name = z.tier === 'palcos' ? 'Palcos ' + STANDS[z.stand].name : STANDS[z.stand].name + ' ' + TIER_NAME[z.tier]; });
+  var ZONE = function (id) { for (var i = 0; i < ZONES.length; i++) if (ZONES[i].id === id) return ZONES[i]; return null; };
+  var zoneLvl = function (z) { return z.cat ? CAT(z.cat).lvl : 0; };
+  var TDEF = function (z) { return TIERS[STANDS[z.stand].type][z.tier]; };
+
+  function arcPts(cx, r, a0, a1, step, out) {
+    out = out || [];
+    var n = Math.max(1, Math.ceil(Math.abs(a1 - a0) / (step || 3)));
+    for (var i = 0; i <= n; i++) { var a = rad(a0 + (a1 - a0) * i / n); out.push([cx + r * Math.cos(a), r * Math.sin(a)]); }
+    return out;
+  }
+  // borde del óvalo a distancia s, solo en el tramo de una tribuna
+  function edge(stand, s) {
+    var r = G.R0 + s, sp = G.split, out = [];
+    if (stand === 'sivori') return arcPts(G.sx, r, -sp, sp, 3, out);
+    if (stand === 'centenario') return arcPts(-G.sx, r, 180 + sp, 180 - sp, 3, out);
+    if (stand === 'sanmartin') { arcPts(G.sx, r, sp, 90, 3, out); return arcPts(-G.sx, r, 90, 180 - sp, 3, out); }
+    arcPts(G.sx, r, -sp, -90, 3, out); return arcPts(-G.sx, r, -90, -180 + sp, 3, out);
+  }
+  function loop(s) { var r = G.R0 + s, out = []; arcPts(G.sx, r, -90, 90, 3, out); return arcPts(-G.sx, r, 90, 270, 3, out); }
+  function bowlY(x) { var ax = Math.abs(x); return ax <= G.sx ? G.R0 : Math.sqrt(Math.max(0, G.R0 * G.R0 - Math.pow(ax - G.sx, 2))); }
+  function ringY(x, r) { var ax = Math.abs(x); return ax <= G.sx ? r : Math.sqrt(Math.max(0, r * r - Math.pow(ax - G.sx, 2))); }
+  function xArc(y, r) { return G.sx + Math.sqrt(Math.max(0, r * r - y * y)); }
+  function offsetOf(x, y) { var ax = Math.abs(x); return ax <= G.sx ? Math.abs(y) - G.R0 : Math.hypot(ax - G.sx, y) - G.R0; }
+
+  function zonePoly(z) {
+    var st = STANDS[z.stand];
+    if (z.tier === 'inf') {
+      if (st.type === 'side') return [[-G.xt, st.sign * G.ySide], [G.xt, st.sign * G.ySide]].concat(edge(z.stand, 0));
+      return st.sign > 0 ? arcPts(G.sx, G.R0, -G.psiF, G.psiF, 3) : arcPts(-G.sx, G.R0, 180 + G.psiF, 180 - G.psiF, 3);
+    }
+    var T = TDEF(z);
+    return edge(z.stand, T.s1).concat(edge(z.stand, T.s0).reverse());
+  }
+  function ringMid(z) { var T = TDEF(z); return G.R0 + (T.s0 + T.s1) / 2; }
+  // punto sobre la mitad de una bandeja: "along" es x en laterales e y en cabeceras
+  function zonePoint(z, along) {
+    var st = STANDS[z.stand];
+    if (st.type === 'side') {
+      var y = z.tier === 'inf' ? (G.ySide + bowlY(along)) / 2 : ringY(along, ringMid(z));
+      return { x: along, y: st.sign * y, rot: 0 };
+    }
+    if (z.tier === 'inf') return { x: st.sign * (G.xEnd + xArc(along, G.R0)) / 2, y: along, rot: st.sign * 90 };
+    var r = ringMid(z), th = Math.asin(clamp(along / r, -1, 1)), deg = th * 180 / Math.PI;
+    return { x: st.sign * (G.sx + r * Math.cos(th)), y: along, rot: st.sign > 0 ? 90 + deg : -90 - deg };
+  }
+  // altura del escalón y posición en el corte para un punto del plano
+  function pointInfo(z, x, y) {
+    var st = STANDS[z.stand], T = TDEF(z), t, dP;
+    if (z.tier === 'inf') {
+      if (st.type === 'side') { t = (Math.abs(y) - G.ySide) / Math.max(0.5, bowlY(x) - G.ySide); t = clamp(t); dP = G.front + t * (G.offSide - G.front); }
+      else { t = (Math.abs(x) - G.xEnd) / Math.max(0.5, xArc(y, G.R0) - G.xEnd); t = clamp(t); dP = G.front + t * (G.offEnd - G.front); }
+    } else {
+      var s = offsetOf(x, y); t = clamp((s - T.s0) / (T.s1 - T.s0));
+      dP = T.s0 + t * (T.s1 - T.s0) + (st.type === 'side' ? G.offSide : G.offEnd);
+    }
+    return { zFloor: T.z0 + t * (T.z1 - T.z0), dProfile: dP };
+  }
+
+  /* ---------------- Estado ---------------- */
+  var state = { cat: 'popular', view: null, pref: { side: 'sanmartin', end: 'sivori' }, cam: null, dims: false };
+  var eyeH = function () { return CAT(state.cat).standing ? 1.6 : 1.2; };
+  var LABEL_AT = -25, VIEW_AT = { side: 18, end: 16 };
+
+  /* ---------------- Plano SVG ---------------- */
+  var map = $('#map'), corte = $('#corte');
+  var VB = { x: -172, y: -140, w: 344, h: 280 };
+  var CVB = { x: -16, y: -39, w: 114, h: 46 };
+  var zoneEls = {}, standLabels = {}, layers = {}, unitMap = 1, narrow = false;
+
+  function mk(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function mkText(parent, str, x, y, cls, rot) {
+    var t = mk('text', { x: x.toFixed(2), y: y.toFixed(2), 'class': cls }, parent);
+    if (rot) t.setAttribute('transform', 'rotate(' + rot.toFixed(2) + ' ' + x.toFixed(2) + ' ' + y.toFixed(2) + ')');
+    t.textContent = str; return t;
+  }
+  function pd(pts, open) { return 'M' + pts.map(function (p) { return p[0].toFixed(2) + ' ' + p[1].toFixed(2); }).join('L') + (open ? '' : 'Z'); }
+  function hatch(defs, id) {
+    var pat = mk('pattern', { id: id, width: 2.6, height: 2.6, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, defs);
+    mk('rect', { width: 2.6, height: 2.6, 'class': 'h-bg' }, pat);
+    mk('rect', { width: 0.9, height: 2.6, 'class': 'h-ln' }, pat);
+  }
+
+  function buildMap() {
+    map.setAttribute('viewBox', VB.x + ' ' + VB.y + ' ' + VB.w + ' ' + VB.h);
+    hatch(mk('defs', null, map), 'hatch');
+
+    // calles de referencia (sin escala)
+    var gS = mk('g', { 'class': 'streets' }, map);
+    mk('rect', { x: -128, y: -138, width: 256, height: 3.6, rx: 1.2, 'class': 'road' }, gS);
+    mkText(gS, 'Av. Udaondo', 0, -126, 't-street');
+    mk('rect', { x: -170, y: -100, width: 3.6, height: 200, rx: 1.2, 'class': 'road' }, gS);
+    mkText(gS, 'Av. Figueroa Alcorta', -156, 0, 't-street', -90);
+    mk('rect', { x: 166.4, y: -100, width: 3.6, height: 200, rx: 1.2, 'class': 'water' }, gS);
+    mkText(gS, 'Hacia el río · Puente Labruna', 156, 0, 't-street', 90);
+
+    mk('path', { d: pd(loop(G.facade)), 'class': 'shell' }, map);
+    var gZ = mk('g', null, map);
+    ZONES.forEach(function (z) { if (z.tier !== 'inf') addZone(gZ, z); });
+    mk('path', { d: pd(loop(0)), 'class': 'surround' }, map);
+    var gI = mk('g', null, map);
+    ZONES.forEach(function (z) { if (z.tier === 'inf') { mk('path', { d: pd(zonePoly(z)), 'class': 'zone-base' }, gI); addZone(gI, z); } });
+
+    buildPitch(mk('g', { 'class': 'pitch' }, map));
+
+    layers.sel = mk('g', null, map);
+    var gL = mk('g', null, map);
+    Object.keys(STANDS).forEach(function (k) {
+      var a = zonePoint(ZONE(k + '-alta'), LABEL_AT);
+      standLabels[k] = mkText(gL, STANDS[k].name.toUpperCase(), a.x, a.y, 't-stand', a.rot);
+    });
+    layers.labels = mk('g', { 'class': 'wide-only' }, map);
+    layers.dims = mk('g', { 'class': 'dims' }, map);
+    buildDims(layers.dims);
+    layers.view = mk('g', null, map);
+    buildScale(mk('g', null, map));
+  }
+  function addZone(g, z) {
+    var p = mk('path', { d: pd(zonePoly(z)), 'class': 'zone' + (z.cat ? '' : ' palco'), 'data-zone': z.id }, g);
+    if (z.cat) p.style.fill = 'var(--p' + zoneLvl(z) + ')';
+    zoneEls[z.id] = p;
+  }
+  function buildPitch(g) {
+    mk('rect', { x: -52.5, y: -35, width: 105, height: 70, 'class': 'grass' }, g);
+    for (var i = 1; i < 20; i += 2) mk('rect', { x: -52.5 + i * 5.25, y: -35, width: 5.25, height: 70, 'class': 'stripe' }, g);
+    var pl = mk('g', { 'class': 'pl' }, g);
+    mk('rect', { x: -52.5, y: -35, width: 105, height: 70 }, pl);
+    mk('line', { x1: 0, y1: -35, x2: 0, y2: 35 }, pl);
+    mk('circle', { cx: 0, cy: 0, r: 9.15 }, pl);
+    [-1, 1].forEach(function (s) {
+      mk('rect', { x: s > 0 ? 36 : -52.5, y: -20.16, width: 16.5, height: 40.32 }, pl);
+      mk('rect', { x: s > 0 ? 47 : -52.5, y: -9.16, width: 5.5, height: 18.32 }, pl);
+      mk('path', { d: 'M' + (s * 36) + ' -7.312A9.15 9.15 0 0 ' + (s > 0 ? 0 : 1) + ' ' + (s * 36) + ' 7.312' }, pl);
+      mk('rect', { x: s > 0 ? 52.5 : -54.5, y: -3.66, width: 2, height: 7.32, 'class': 'goal' }, g);
+      mk('circle', { cx: s * 41.5, cy: 0, r: 0.4, 'class': 'spot' }, g);
+    });
+    mk('circle', { cx: 0, cy: 0, r: 0.4, 'class': 'spot' }, g);
+    // bancos de suplentes, delante de la San Martín (posición aprox.)
+    mk('rect', { x: -18, y: 37.4, width: 11, height: 2, rx: 0.5, 'class': 'bench' }, g);
+    mk('rect', { x: 7, y: 37.4, width: 11, height: 2, rx: 0.5, 'class': 'bench' }, g);
+    mkText(g, 'bancos', 0, 42.6, 't-mini wide-only');
+  }
+  function dimLine(g, a, b, label, rot) {
+    mk('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], 'class': 'dim' }, g);
+    var dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy), nx = -dy / L * 1.8, ny = dx / L * 1.8;
+    [a, b].forEach(function (p) { mk('line', { x1: p[0] - nx, y1: p[1] - ny, x2: p[0] + nx, y2: p[1] + ny, 'class': 'dim' }, g); });
+    mkText(g, label, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2, 't-dim halo', rot);
+  }
+  function buildDims(g) {
+    [25, 50, 75, 100].forEach(function (r) {
+      mk('circle', { cx: 0, cy: 0, r: r, 'class': 'ring' }, g);
+      var a = rad(-38); mkText(g, r + ' m', r * Math.cos(a), r * Math.sin(a), 't-dim halo');
+    });
+    dimLine(g, [-52.5, -40.5], [52.5, -40.5], '105 m');
+    dimLine(g, [-58.5, -35], [-58.5, 35], '70 m', -90);
+    dimLine(g, [24, 35], [24, 47], '12 m');
+    dimLine(g, [52.5, 26], [64.5, 26], '≈12 m');
+    mk('path', { d: pd(loop(G.facade)), 'class': 'outline' }, g);
+    mkText(g, 'Contorno ≈ ' + round(G.outerL) + ' × ' + round(G.outerW) + ' m (estimado)', 168, 133, 't-dim end');
+  }
+  function buildScale(g) {
+    var x0 = -166, y0 = 122;
+    mk('rect', { x: x0, y: y0, width: 25, height: 2.4, 'class': 'sb1' }, g);
+    mk('rect', { x: x0 + 25, y: y0, width: 25, height: 2.4, 'class': 'sb2' }, g);
+    mk('rect', { x: x0, y: y0, width: 50, height: 2.4, 'class': 'sb-frame' }, g);
+    ['0', '25', '50 m'].forEach(function (t, i) { mkText(g, t, x0 + i * 25 + (i === 2 ? 3 : 0), y0 + 9, 't-scale'); });
+  }
+
+  function paintZones() {
+    var sel = zoneCat(state.cat);
+    layers.sel.textContent = '';
+    ZONES.forEach(function (z) {
+      var on = z.cat === sel, e = zoneEls[z.id];
+      e.classList.toggle('on', on); e.classList.toggle('off', !on);
+      if (on) mk('path', { d: e.getAttribute('d'), 'class': 'sel-outline' }, layers.sel);
+    });
+  }
+  function drawLabels() {
+    var sel = zoneCat(state.cat);
+    layers.labels.textContent = '';
+    ZONES.forEach(function (z) {
+      if (z.cat !== sel || z.tier === 'alta') return;
+      var a = zonePoint(z, LABEL_AT); mkText(layers.labels, TIER_NAME[z.tier], a.x, a.y, 't-zone', a.rot);
+    });
+    Object.keys(standLabels).forEach(function (k) {
+      var altaOn = ZONE(k + '-alta').cat === sel;
+      standLabels[k].textContent = STANDS[k].name.toUpperCase() + (altaOn && !narrow ? ' · ALTA' : '');
+    });
+  }
+  function drawViewMarker() {
+    var g = layers.view, v = state.view; if (!v) return;
+    g.textContent = '';
+    var ang = Math.atan2(-v.y, -v.x), half = rad(FOV / 2), L = 36;
+    var p1 = [v.x + L * Math.cos(ang - half), v.y + L * Math.sin(ang - half)];
+    var p2 = [v.x + L * Math.cos(ang + half), v.y + L * Math.sin(ang + half)];
+    mk('path', { d: 'M' + v.x.toFixed(2) + ' ' + v.y.toFixed(2) + 'L' + p1[0].toFixed(2) + ' ' + p1[1].toFixed(2) + 'A' + L + ' ' + L + ' 0 0 1 ' + p2[0].toFixed(2) + ' ' + p2[1].toFixed(2) + 'Z', 'class': 'fov' }, g);
+    mk('circle', { cx: v.x.toFixed(2), cy: v.y.toFixed(2), r: (7.5 * unitMap).toFixed(2), 'class': 'vp-halo' }, g);
+    mk('circle', { cx: v.x.toFixed(2), cy: v.y.toFixed(2), r: (4.6 * unitMap).toFixed(2), 'class': 'vp' }, g);
+  }
+
+  /* ---------------- Tooltip y clicks ---------------- */
+  var tip = $('#tip'), plano = $('#plano'), msg = $('#map-msg'), msgTimer = null;
+  function zoneFromEvent(e) { var t = e.target; return t && t.getAttribute && t.getAttribute('data-zone') ? ZONE(t.getAttribute('data-zone')) : null; }
+  function toPlan(e) {
+    var pt = map.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+    var m = map.getScreenCTM(); if (!m) return null;
+    var q = pt.matrixTransform(m.inverse()); return [q.x, q.y];
+  }
+  map.addEventListener('pointermove', function (e) {
+    var z = zoneFromEvent(e);
+    if (!z || e.pointerType === 'touch') { tip.hidden = true; return; }
+    var c = z.cat ? CAT(z.cat) : null;
+    tip.innerHTML = '<b>' + z.name + '</b>' + (c ? c.name + ' · ' + fmt(c.price) + (c.id === 'popular' ? ' (menores $29.000)' : '') : 'No figuran en la lista de precios de la AFA');
+    tip.hidden = false;
+    var r = plano.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+    var x = e.clientX - r.left + 14, y = e.clientY - r.top + 14;
+    if (x + tw > r.width - 8) x = e.clientX - r.left - tw - 14;
+    if (y + th > r.height - 8) y = e.clientY - r.top - th - 14;
+    tip.style.transform = 'translate(' + Math.max(6, x) + 'px,' + Math.max(6, y) + 'px)';
+  });
+  map.addEventListener('pointerleave', function () { tip.hidden = true; });
+  map.addEventListener('click', function (e) {
+    var z = zoneFromEvent(e); if (!z) return;
+    if (!z.cat) { flash('Los palcos no figuran en la lista de precios de la AFA para este partido.'); return; }
+    var p = toPlan(e); if (!p) return;
+    var st = STANDS[z.stand];
+    state.pref[st.type] = z.stand;
+    var catId = state.cat === 'menor' && z.cat === 'popular' ? 'menor' : z.cat;
+    select(catId, { zone: z.id, x: p[0], y: p[1] });
+  });
+  function flash(text) {
+    msg.textContent = text; clearTimeout(msgTimer);
+    msgTimer = setTimeout(function () { msg.textContent = ''; }, 5000);
+  }
+
+  /* ---------------- Detalle ---------------- */
+  function catRange(c) {
+    var d0 = Infinity, d1 = -Infinity, z0 = Infinity, z1 = -Infinity;
+    c.tiers.forEach(function (t) {
+      var pr = profileRange(c.type, t), T = TIERS[c.type][t];
+      d0 = Math.min(d0, pr[0]); d1 = Math.max(d1, pr[1]); z0 = Math.min(z0, T.z0); z1 = Math.max(z1, T.z1);
+    });
+    return { d0: round(d0), d1: round(d1), z0: Math.max(1, round(z0)), z1: round(z1) };
+  }
+  function renderDetail() {
+    var c = CAT(state.cat), z = ZONE(state.view.zone), st = STANDS[z.stand], rg = catRange(c);
+    var pair = c.type === 'side' ? ['sanmartin', 'belgrano'] : ['sivori', 'centenario'];
+    var lineTxt = c.type === 'side' ? 'de la línea lateral' : 'de la línea de fondo, detrás del arco';
+    var hadFocus = document.activeElement && document.activeElement.closest && document.activeElement.closest('#detalle .switch');
+    $('#detalle').innerHTML =
+      '<p class="det-eyebrow">Entrada seleccionada</p>' +
+      '<h2 class="det-title" id="det-title">' + c.name + '</h2>' +
+      '<p class="det-price">' + fmt(c.price) + (c.extra ? '<span class="det-extra">' + c.extra + '</span>' : '') + '</p>' +
+      '<p class="det-where">' + c.where + '</p>' +
+      '<dl class="det-grid">' +
+        '<dt>Tribunas</dt><dd>' + c.stands + '</dd>' +
+        '<dt>Bandejas</dt><dd>' + c.tiersTxt + '</dd>' +
+        '<dt>Ubicación</dt><dd>' + c.seat + '</dd>' +
+        '<dt>Distancia</dt><dd>' + rg.d0 + ' a ' + rg.d1 + ' m ' + lineTxt + ' <span class="aprox">aprox.</span></dd>' +
+        '<dt>Altura</dt><dd>' + rg.z0 + ' a ' + rg.z1 + ' m sobre el campo <span class="aprox">aprox.</span></dd>' +
+      '</dl>' +
+      '<p class="det-note">' + c.note + '</p>' +
+      '<div class="det-switch"><p class="det-sw-label">Ver desde</p>' +
+        '<div class="switch" role="group" aria-label="Tribuna">' + pair.map(function (k) {
+          return '<button type="button" data-stand="' + k + '" aria-pressed="' + (k === z.stand) + '">' + STANDS[k].name + '</button>';
+        }).join('') + '</div>' +
+        '<p class="det-stand">' + st.info + '</p></div>';
+    $$('#detalle .switch button').forEach(function (b) {
+      b.addEventListener('click', function () { state.pref[c.type] = b.getAttribute('data-stand'); select(state.cat, null, true); });
+    });
+    if (hadFocus) { var pb = $('#detalle .switch button[aria-pressed="true"]'); if (pb) pb.focus(); }
+  }
+
+  /* ---------------- Corte ---------------- */
+  function stepPoly(d0, d1, z0, z1) {
+    var n = Math.max(3, round((d1 - d0) / 0.85)), w = (d1 - d0) / n, h = (z1 - z0) / (n - 1);
+    var pts = [[d0, Math.max(0, z0 - 1.4)], [d0, z0]];
+    for (var i = 0; i < n; i++) { var zz = z0 + i * h; if (i > 0) pts.push([d0 + i * w, zz]); pts.push([d0 + (i + 1) * w, zz]); }
+    pts.push([d1, Math.max(0, z1 - 1.4)]);
+    return pts;
+  }
+  function renderCorte() {
+    var c = CAT(state.cat), type = c.type, sel = {}, off = type === 'side' ? G.offSide : G.offEnd, back = off + G.facade;
+    c.tiers.forEach(function (t) { sel[t] = true; });
+    var Y = function (z) { return -z; };
+    corte.setAttribute('viewBox', CVB.x + ' ' + CVB.y + ' ' + CVB.w + ' ' + CVB.h);
+    corte.textContent = '';
+    hatch(mk('defs', null, corte), 'c-hatch');
+    var g = mk('g', null, corte);
+    [10, 20, 30].forEach(function (hh) {
+      mk('line', { x1: -16, y1: Y(hh), x2: back, y2: Y(hh), 'class': 'cg' }, g);
+      mkText(g, hh + ' m', back + 2.2, Y(hh), 'c-ax start');
+    });
+    mk('rect', { x: -16, y: -0.5, width: 16, height: 0.5, 'class': 'c-grass' }, g);
+    mk('rect', { x: 0, y: -0.5, width: G.front, height: 0.5, 'class': 'c-edge' }, g);
+    var list = Object.keys(TIERS[type]).map(function (t) {
+      var T = TIERS[type][t], pr = profileRange(type, t);
+      return { t: t, d0: pr[0], d1: pr[1], z0: T.z0, z1: T.z1 };
+    });
+    var struct = [[G.front, 0], [back, 0], [back, 33]];
+    list.slice().reverse().forEach(function (o) { struct.push([o.d1, o.z1], [o.d0, o.z0]); });
+    mk('path', { d: pd(struct.map(function (q) { return [q[0], Y(q[1])]; })), 'class': 'c-struct' }, g);
+    if (type === 'end') mk('line', { x1: G.front - 0.5, y1: 0, x2: G.front - 0.5, y2: Y(2.5), 'class': 'c-fence' }, g);
+    list.forEach(function (o) {
+      var on = !!sel[o.t], pal = o.t === 'palcos';
+      var pts = pal ? [[o.d0, o.z0], [o.d1, o.z0], [o.d1, o.z1], [o.d0, o.z1]] : stepPoly(o.d0, o.d1, o.z0, o.z1);
+      var p = mk('path', { d: pd(pts.map(function (q) { return [q[0], Y(q[1])]; })), 'class': 'c-tier ' + (on ? 'on' : 'off') + (pal ? ' palco' : '') }, g);
+      if (!pal) {
+        var zz = null; ZONES.forEach(function (z) { if (!zz && STANDS[z.stand].type === type && z.tier === o.t) zz = z; });
+        p.style.fill = 'var(--p' + zoneLvl(zz) + ')';
+      }
+      mkText(g, TIER_SHORT[o.t], (o.d0 + o.d1) / 2, Y(o.z1 + 2.6), 'c-lbl' + (on ? ' on' : ''));
+    });
+    mk('line', { x1: 0, y1: 0.8, x2: 0, y2: -1.8, 'class': 'c-line' }, g);
+    [0, 25, 50, 75].forEach(function (x) {
+      mk('line', { x1: x, y1: 0, x2: x, y2: 1, 'class': 'c-tick' }, g);
+      mkText(g, x === 0 ? (type === 'side' ? 'línea lateral' : 'línea de fondo') : x + ' m', x, 3.9, 'c-ax');
+    });
+    mkText(g, 'campo', -8, Y(2.2), 'c-ax');
+    var z = ZONE(state.view.zone), info = pointInfo(z, state.view.x, state.view.y), eye = info.zFloor + eyeH();
+    mk('line', { x1: info.dProfile, y1: Y(eye), x2: 0, y2: 0, 'class': 'c-sight' }, g);
+    mk('circle', { cx: info.dProfile, cy: Y(eye), r: 1.1, 'class': 'c-eye' }, g);
+    $('#h-corte').textContent = type === 'side' ? 'Corte de la lateral' : 'Corte de la cabecera';
+    $('#corte-sub').textContent = type === 'side'
+      ? 'San Martín y Belgrano, desde la línea lateral hacia afuera. El punto dorado es el lugar elegido.'
+      : 'Sívori y Centenario, desde la línea de fondo hacia afuera, sobre el eje del arco. El punto dorado es el lugar elegido.';
+  }
+
+  /* ---------------- Vista en perspectiva (canvas) ---------------- */
+  var cv = $('#vista'), box = $('#vista-box'), FOV = 75, NEAR = 0.4, colors = null, QUADS = [], PITCH = null, anim = 0;
+  function hex(h) { h = (h || '#000').trim().replace('#', ''); if (h.length === 3) h = h.replace(/(.)/g, '$1$1'); var n = parseInt(h, 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
+  function mix(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
+  function rgb(c) { return 'rgb(' + round(c[0]) + ',' + round(c[1]) + ',' + round(c[2]) + ')'; }
+  function readColors() {
+    var cs = getComputedStyle(document.documentElement), g = function (n) { return cs.getPropertyValue(n).trim(); };
+    return { p: [null, hex(g('--p1')), hex(g('--p2')), hex(g('--p3')), hex(g('--p4')), hex(g('--p5'))], palco: hex(g('--palco')),
+      grass: g('--grass'), grass2: g('--grass-2'), edge: g('--grass-edge'), line: g('--line'), sky1: g('--sky-1'), sky2: g('--sky-2'),
+      fog: hex(g('--sky-2')), dim: hex(g('--dim')) };
+  }
+  // mundo 3D: X = x del plano, Y = -y del plano (hacia la Belgrano), Z = altura
+  function W(x, y, z) { return [x, -y, z]; }
+  function samples(stand) {
+    var out = [], sp = G.split;
+    function arc(cx, a0, a1) { var n = Math.max(1, Math.ceil(Math.abs(a1 - a0) / 4)); for (var i = 0; i <= n; i++) { var a = rad(a0 + (a1 - a0) * i / n); out.push({ bx: cx + G.R0 * Math.cos(a), by: G.R0 * Math.sin(a), nx: Math.cos(a), ny: Math.sin(a) }); } }
+    function straight(sg) { for (var i = 1; i < 12; i++) out.push({ bx: G.sx - 2 * G.sx * i / 12, by: sg * G.R0, nx: 0, ny: sg }); }
+    if (stand === 'sivori') arc(G.sx, -sp, sp);
+    else if (stand === 'centenario') arc(-G.sx, 180 + sp, 180 - sp);
+    else if (stand === 'sanmartin') { arc(G.sx, sp, 90); straight(1); arc(-G.sx, 90, 180 - sp); }
+    else { arc(G.sx, -sp, -90); straight(-1); arc(-G.sx, -90, -180 + sp); }
+    return out;
+  }
+  function buildScene() {
+    ZONES.forEach(function (z) {
+      var st = STANDS[z.stand], T = TDEF(z), i, k, K;
+      if (z.tier === 'inf') {
+        K = 3;
+        var P = st.type === 'side'
+          ? function (u, t) { var yb = bowlY(u); return W(u, st.sign * (G.ySide + t * (yb - G.ySide)), T.z0 + t * (T.z1 - T.z0)); }
+          : function (u, t) { var xa = xArc(u, G.R0); return W(st.sign * (G.xEnd + t * (xa - G.xEnd)), u, T.z0 + t * (T.z1 - T.z0)); };
+        var lim = st.type === 'side' ? G.xt : G.yf, n = 28;
+        for (i = 0; i < n; i++) {
+          var ua = -lim + 2 * lim * i / n, ub = -lim + 2 * lim * (i + 1) / n;
+          for (k = 0; k < K; k++) { var ta = k / K, tb = (k + 1) / K; QUADS.push({ z: z, p: [P(ua, ta), P(ub, ta), P(ub, tb), P(ua, tb)] }); }
+        }
+        return;
+      }
+      var S = samples(z.stand); K = z.tier === 'palcos' ? 1 : Math.max(2, round((T.s1 - T.s0) / 5));
+      var Q = function (q, s, zz) { return W(q.bx + s * q.nx, q.by + s * q.ny, zz); };
+      for (i = 0; i < S.length - 1; i++) for (k = 0; k < K; k++) {
+        var sa = T.s0 + (T.s1 - T.s0) * k / K, sb = T.s0 + (T.s1 - T.s0) * (k + 1) / K;
+        var za = T.z0 + (T.z1 - T.z0) * k / K, zb = T.z0 + (T.z1 - T.z0) * (k + 1) / K;
+        QUADS.push({ z: z, p: [Q(S[i], sa, za), Q(S[i + 1], sa, za), Q(S[i + 1], sb, zb), Q(S[i], sb, zb)] });
+      }
+    });
+    var lines = [], goals = [], stripes = [];
+    var rect = function (x0, y0, x1, y1) { return [W(x0, y0, 0), W(x1, y0, 0), W(x1, y1, 0), W(x0, y1, 0), W(x0, y0, 0)]; };
+    var circ = function (cx, r, a0, a1, n) { var o = []; for (var i = 0; i <= n; i++) { var a = rad(a0 + (a1 - a0) * i / n); o.push(W(cx + r * Math.cos(a), r * Math.sin(a), 0)); } return o; };
+    lines.push(rect(-52.5, -35, 52.5, 35), [W(0, -35, 0), W(0, 35, 0)], circ(0, 9.15, 0, 360, 48));
+    [-1, 1].forEach(function (s) {
+      lines.push(rect(s * 52.5, -20.16, s * 36, 20.16), rect(s * 52.5, -9.16, s * 47, 9.16));
+      var a = Math.acos(5.5 / 9.15) * 180 / Math.PI;
+      lines.push(s > 0 ? circ(41.5, 9.15, 180 - a, 180 + a, 14) : circ(-41.5, 9.15, -a, a, 14));
+      var gx = s * 52.5, bx = s * 54.5;
+      goals.push([W(gx, -3.66, 0), W(gx, -3.66, 2.44), W(gx, 3.66, 2.44), W(gx, 3.66, 0)]);
+      goals.push([W(gx, -3.66, 2.44), W(bx, -3.66, 1.2), W(bx, 3.66, 1.2), W(gx, 3.66, 2.44)]);
+    });
+    for (var i = 1; i < 20; i += 2) stripes.push([W(-52.5 + i * 5.25, -35, 0), W(-52.5 + (i + 1) * 5.25, -35, 0), W(-52.5 + (i + 1) * 5.25, 35, 0), W(-52.5 + i * 5.25, 35, 0)]);
+    PITCH = {
+      surround: loop(0).map(function (p) { return W(p[0], p[1], 0); }),
+      pitch: [W(-52.5, -35, 0), W(52.5, -35, 0), W(52.5, 35, 0), W(-52.5, 35, 0)],
+      stripes: stripes, lines: lines, goals: goals
+    };
+  }
+  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+  function norm(a) { var l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; }
+  function makeCam(P, T, w, h) {
+    var f = norm(sub(T, P)), r = cross(f, [0, 0, 1]);
+    r = Math.hypot(r[0], r[1], r[2]) < 1e-6 ? [1, 0, 0] : norm(r);
+    return { P: P, f: f, r: r, u: cross(r, f), F: (w / 2) / Math.tan(rad(FOV) / 2), w: w, h: h };
+  }
+  function toCam(c, p) { var d = sub(p, c.P); return [dot(d, c.r), dot(d, c.u), dot(d, c.f)]; }
+  function proj(c, q) { return [c.w / 2 + c.F * q[0] / q[2], c.h / 2 - c.F * q[1] / q[2]]; }
+  function clipNear(pts) {
+    var out = [];
+    for (var i = 0; i < pts.length; i++) {
+      var a = pts[i], b = pts[(i + 1) % pts.length], ia = a[2] >= NEAR, ib = b[2] >= NEAR;
+      if (ia) out.push(a);
+      if (ia !== ib) { var t = (NEAR - a[2]) / (b[2] - a[2]); out.push([a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1]), NEAR]); }
+    }
+    return out;
+  }
+  function tracePoly(ctx, c, camPts) {
+    var cl = clipNear(camPts); if (cl.length < 3) return false;
+    ctx.beginPath();
+    for (var i = 0; i < cl.length; i++) { var s = proj(c, cl[i]); if (i) ctx.lineTo(s[0], s[1]); else ctx.moveTo(s[0], s[1]); }
+    ctx.closePath(); return true;
+  }
+  function fillWorld(ctx, c, pts, style) { if (tracePoly(ctx, c, pts.map(function (p) { return toCam(c, p); }))) { ctx.fillStyle = style; ctx.fill(); } }
+  function strokeWorld(ctx, c, pts) {
+    ctx.beginPath();
+    for (var i = 0; i < pts.length - 1; i++) {
+      var a = toCam(c, pts[i]), b = toCam(c, pts[i + 1]);
+      if (a[2] < NEAR && b[2] < NEAR) continue;
+      if (a[2] < NEAR) { var t = (NEAR - a[2]) / (b[2] - a[2]); a = [a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1]), NEAR]; }
+      else if (b[2] < NEAR) { var t2 = (NEAR - b[2]) / (a[2] - b[2]); b = [b[0] + t2 * (a[0] - b[0]), b[1] + t2 * (a[1] - b[1]), NEAR]; }
+      var sa = proj(c, a), sb = proj(c, b); ctx.moveTo(sa[0], sa[1]); ctx.lineTo(sb[0], sb[1]);
+    }
+    ctx.stroke();
+  }
+  var lastW = 0;
+  function renderView() {
+    if (!state.cam || !PITCH) return;
+    var w = Math.max(240, round(box.clientWidth)), h = round(w * 0.6), dpr = Math.min(2, window.devicePixelRatio || 1);
+    if (cv.width !== round(w * dpr) || cv.height !== round(h * dpr)) { cv.width = round(w * dpr); cv.height = round(h * dpr); cv.style.height = h + 'px'; }
+    var ctx = cv.getContext('2d'); if (!ctx) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var C = colors || (colors = readColors());
+    var sky = ctx.createLinearGradient(0, 0, 0, h); sky.addColorStop(0, C.sky1); sky.addColorStop(1, C.sky2);
+    ctx.fillStyle = sky; ctx.fillRect(0, 0, w, h);
+    var cam = makeCam(W(state.cam.x, state.cam.y, state.cam.z), [0, 0, 0], w, h);
+    fillWorld(ctx, cam, PITCH.surround, C.edge);
+    fillWorld(ctx, cam, PITCH.pitch, C.grass);
+    PITCH.stripes.forEach(function (s) { fillWorld(ctx, cam, s, C.grass2); });
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.strokeStyle = C.line; ctx.lineWidth = 1.3; PITCH.lines.forEach(function (l) { strokeWorld(ctx, cam, l); });
+    ctx.lineWidth = 2.2; PITCH.goals.forEach(function (l) { strokeWorld(ctx, cam, l); });
+    var sel = zoneCat(state.cat), items = [];
+    for (var i = 0; i < QUADS.length; i++) {
+      var q = QUADS[i], cp = [toCam(cam, q.p[0]), toCam(cam, q.p[1]), toCam(cam, q.p[2]), toCam(cam, q.p[3])];
+      if (Math.max(cp[0][2], cp[1][2], cp[2][2], cp[3][2]) < NEAR) continue;
+      items.push({ q: q, cp: cp, d: (cp[0][2] + cp[1][2] + cp[2][2] + cp[3][2]) / 4 });
+    }
+    items.sort(function (a, b) { return b.d - a.d; });
+    ctx.lineWidth = 0.7;
+    for (i = 0; i < items.length; i++) {
+      var it = items[i], zc = it.q.z, base = zc.cat ? C.p[CAT(zc.cat).lvl] : C.palco;
+      var col = zc.cat === sel ? base : mix(base, C.dim, 0.55);
+      col = mix(col, C.fog, Math.min(0.35, Math.max(0, it.d) / 700));
+      if (!tracePoly(ctx, cam, it.cp)) continue;
+      ctx.fillStyle = rgb(col); ctx.fill();
+      ctx.strokeStyle = rgb(mix(col, [0, 0, 0], 0.22)); ctx.stroke();
+    }
+    // nombres de las tribunas sobre el borde superior
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '800 ' + (w < 420 ? 13 : 15) + 'px "Big Shoulders", "Big Shoulders Display", "Arial Narrow", sans-serif';
+    Object.keys(STANDS).forEach(function (k) {
+      var a = zonePoint(ZONE(k + '-alta'), 0), p = toCam(cam, W(a.x, a.y, 35));
+      if (p[2] < 5) return;
+      var s = proj(cam, p); if (s[0] < 20 || s[0] > w - 20 || s[1] < 10 || s[1] > h - 10) return;
+      ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillText(STANDS[k].name.toUpperCase(), s[0] + 1, s[1] + 1);
+      ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.fillText(STANDS[k].name.toUpperCase(), s[0], s[1]);
+    });
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '600 11px "Hanken Grotesk", system-ui, sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,.7)';
+    ctx.fillText('Simulación · campo visual ' + FOV + '°', 10, h - 10);
+  }
+  function camTarget() {
+    var z = ZONE(state.view.zone), info = pointInfo(z, state.view.x, state.view.y);
+    return { x: state.view.x, y: state.view.y, z: info.zFloor + eyeH() };
+  }
+  function updateViewInfo(t) {
+    var z = ZONE(state.view.zone), dc = Math.hypot(t.x, t.y, t.z);
+    var dx = Math.max(0, Math.abs(t.x) - G.halfL), dy = Math.max(0, Math.abs(t.y) - G.halfW);
+    var dl = Math.hypot(dx, dy), which = dx > dy ? 'la línea de fondo' : 'la línea lateral';
+    $('#vista-info').innerHTML = 'Desde <b>' + z.name + '</b>: ' + round(dc) + ' m hasta el centro del campo, ' + round(dl) + ' m hasta ' + which + ' y ojos a ' + round(t.z) + ' m de altura <span class="aprox">aprox.</span>';
+  }
+  function goCamera(animate) {
+    var target = camTarget(); updateViewInfo(target);
+    cancelAnimationFrame(anim);
+    if (!state.cam || !animate || reduceMotion.matches) { state.cam = target; renderView(); return; }
+    var from = state.cam, t0 = performance.now(), dur = 560;
+    var rf = Math.hypot(from.x, from.y), rt = Math.hypot(target.x, target.y);
+    var af = Math.atan2(from.y, from.x), at = Math.atan2(target.y, target.x), da = at - af;
+    if (da > Math.PI) da -= 2 * Math.PI; if (da < -Math.PI) da += 2 * Math.PI;
+    var step = function (now) {
+      var t = clamp((now - t0) / dur), e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      var a = af + da * e, r = rf + (rt - rf) * e;
+      state.cam = { x: r * Math.cos(a), y: r * Math.sin(a), z: from.z + (target.z - from.z) * e };
+      renderView();
+      if (t < 1) anim = requestAnimationFrame(step); else { state.cam = target; }
+    };
+    anim = requestAnimationFrame(step);
+  }
+
+  /* ---------------- Selección ---------------- */
+  function defaultView(catId) {
+    var c = CAT(catId), st = state.pref[c.type], z = ZONE(st + '-' + c.tiers[0]);
+    var p = zonePoint(z, VIEW_AT[c.type]); return { zone: z.id, x: p.x, y: p.y };
+  }
+  function select(catId, view, animate) {
+    var c = CAT(catId); if (!c) return;
+    state.cat = catId;
+    state.view = view || defaultView(catId);
+    $$('.stub').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-cat') === catId)); });
+    paintZones(); drawLabels(); drawViewMarker(); renderDetail(); renderCorte();
+    goCamera(animate !== false);
+    $('#live').textContent = c.name + ', ' + fmt(c.price) + '. ' + c.stands + '.';
+    try { if (window.history && history.replaceState) history.replaceState(null, '', '#' + catId); } catch (e) { /* marco restringido */ }
+  }
+
+  /* ---------------- Tamaños y tema ---------------- */
+  function updateUnits() {
+    var wm = map.getBoundingClientRect().width || 800;
+    unitMap = VB.w / wm; map.style.setProperty('--u', unitMap.toFixed(4));
+    var nw = wm < 560; if (nw !== narrow) { narrow = nw; map.classList.toggle('narrow', narrow); drawLabels(); }
+    var wc = corte.getBoundingClientRect().width || 500; corte.style.setProperty('--u', (CVB.w / wc).toFixed(4));
+    drawViewMarker();
+  }
+  function onResize() {
+    updateUnits();
+    var bw = round(box.clientWidth); if (bw !== lastW) { lastW = bw; renderView(); }
+  }
+  function onTheme() { colors = null; renderView(); }
+
+  $$('.stub').forEach(function (b) {
+    b.addEventListener('click', function () {
+      select(b.getAttribute('data-cat'));
+      if (window.innerWidth < 1180) {
+        var r = plano.getBoundingClientRect();
+        if (r.top < 0 || r.bottom > window.innerHeight) plano.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'nearest' });
+      }
+    });
+  });
+  $('#t-medidas').addEventListener('click', function (e) {
+    state.dims = !state.dims; map.classList.toggle('show-dims', state.dims);
+    e.currentTarget.setAttribute('aria-pressed', String(state.dims));
+  });
+
+  buildMap();
+  buildScene();
+  updateUnits();
+  var h0 = (location.hash || '').replace('#', '');
+  select(CAT(h0) ? h0 : 'popular', null, false);
+  lastW = round(box.clientWidth);
+
+  if (window.ResizeObserver) { var ro = new ResizeObserver(onResize); ro.observe(map); ro.observe(box); ro.observe(corte); }
+  else window.addEventListener('resize', onResize);
+  var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  if (mq) { if (mq.addEventListener) mq.addEventListener('change', onTheme); else if (mq.addListener) mq.addListener(onTheme); }
+  if (window.MutationObserver) new MutationObserver(onTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { renderView(); });
+})();
+</script>
+</body>
+</html>
