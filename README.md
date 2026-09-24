@@ -2,7 +2,9 @@
 
 Mapa interactivo a escala para ver dónde queda cada entrada del partido despedida de Messi: **Argentina vs Benín, martes 6 de octubre de 2026, Mâs Monumental**.
 
-Abrí `index.html` en cualquier navegador; no necesita instalación. Elegís una entrada y la página muestra:
+Abrí `index.html` en cualquier navegador; no necesita instalación. También está publicada como página de Claude (privada): https://claude.ai/artifact/QsfcTmGF42RwdSqXrQaFAd
+
+Elegís una entrada y la página muestra:
 
 - **Plano a escala** visto desde arriba, en metros reales, con los sectores de esa entrada resaltados. Tocando cualquier sector del plano se mueve el punto de vista a ese lugar.
 - **Detalle**: precio, tribunas, bandejas, si es con butaca o de pie, distancia a la línea y altura.
